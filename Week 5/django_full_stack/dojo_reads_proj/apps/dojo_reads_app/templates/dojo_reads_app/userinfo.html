@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'dojo_reads_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'dojo_reads_app/css/style.css' %}">
+    <title>Account info</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-nav d-flex" style="background-color: #4267b2;color: white">
+            <div class="p-2 ml-auto">
+                <a href="/books" style="color: white">Home</a>
+            </div>
+            <div class="p-2">
+                <a href="/add" style="color: white">Add Book and Review</a>
+            </div>
+            <div class="p-2">
+                <a href="/logout" style="color: white">Log Out</a>
+            </div>
+        </div>
+        <div class="container">
+            <div class="user-info mt-3">
+                <p>User Alias: {{user.first_name}}</p>
+                <p>Name: {{user.first_name}} {{user.last_name}}</p>
+                <p>Email: {{user.email}}</p>
+                <p>Total reviews: {{user.reviews.all.count}}</p>
+            </div>
+
+            <div class="reviews-list">
+                <p>Posted Reviews on the following books:</p>
+                <ul>
+                    {% for review in user_reviews %}
+                    <li class="list-unstyled"><a
+                            href="/books/{{review.reviewed_book.id}}">{{review.reviewed_book.title}}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+
+</html>

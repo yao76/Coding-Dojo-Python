@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Show Info</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'srshows_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'srshows_app/css/style.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="jumbotron d-flex justify-content-between">
+            <h1 class="d-inline-block">TV Show {{selected_show.id}}</h1>
+            <a class="d-inline-block text-right" href="/allshows">Go Back to All Shows</a>
+        </div>
+        <p>Title: {{selected_show.title}}</p>
+        <p>Network: {{selected_show.network}}</p>
+        <p>Release date: {{selected_show.release_date}}</p>
+        <p>Description: {{selected_show.description}}</p>
+        <p style="margin-top: 50px">Last Updated: {{selected_show.updated_at}}</p>
+        <td><a href="{{selected_show.id}}/edit">Edit</a> | <a href="{{selected_show.id}}/delete">Delete</a></td>
+    </div>
+</body>
+
+</html>

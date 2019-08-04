@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'fav_book_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'fav_book_app/css/style.css' %}">
+    <title>Book Info</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-nav d-flex" style="background-color: #4267b2;color: white">
+            <div class="p-2 mr-auto">Welcome {{user.first_name}}!</div>
+            <div class="p-2">
+                <a href="/books" style="color: white">Go Back | </a>
+                <a href="/logout" style="color: white">Log Out</a>
+            </div>
+        </div>
+        <div class="main-book-info container d-flex pb-3"
+            style="background: linear-gradient(to right, #d9a7c7, #fffcdc); ">
+            {% if user.id == selected_book.uploaded_by_id %}
+            <div class="updateform w-50 d-inline-block align-top pt-5 ml-5">
+                <form action="/updatebook/{{selected_book.id}}" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            <input type="text" name="book-title" class="form-control" value="{{selected_book.title}}">
+                            {% for message in messages %}
+                            {% if message.extra_tags == "book-title" %}
+                            <li style="list-style: none">{{ message }}</li>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="left text-left">
+                        <p>Logged in user: {{user.id}}</p>
+                        <p>Added by: {{selected_book.uploaded_by.first_name}} {{selected_book.uploaded_by.last_name}}
+                        </p>
+                        <p>Added on: {{selected_book.created_at}}</p>
+                        <p>Last Updated: {{selected_book.updated_at}}</p>
+                    </div>
+                    <div class="form-group row">
+                        <label for="description" class="col-sm-2 col-form-label">Description</label>
+                        <div class="col-sm-6">
+                            <textarea class="form-control" id="description" name="description"
+                                rows="5">{{selected_book.desc}}</textarea>
+                                {% for message in messages %}
+                                {% if message.extra_tags == "description" %}
+                                <li style="list-style: none">{{ message }}</li>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                    </div>
+                    <input type="submit" class="btn btn-primary offset-3" name='create-btn' value="Update">
+                    <a class="btn btn-primary" style="font-size: 1rem"
+                        href="/deletebook/{{selected_book.id}}">Delete</a>
+                </form>
+            </div>
+            <div class="fave-info w-50 d-inline-block align-top pt-5">
+                <h2>Users Who Liked This Book:</h2>
+                <ul>
+                    {% for fan in selected_book.users_who_like.all %}
+                    <li>{{fan.first_name}} {{fan.last_name}}</li>
+                    {%endfor%}
+                </ul>
+                {% if user not in selected_book.users_who_like.all%}
+                <a href="/addfavorite/{{selected_book.id}}">Add to Favorites</a>
+                {% else %}
+                <a href="/deletefavorite/{{selected_book.id}}">Un-Favorite</a>
+                {% endif %}
+
+            </div>
+
+            {% else %}
+            <div class="book-info w-50 d-inline-block align-top">
+                <h1>{{selected_book.title}}</h1>
+                <p>Added by: {{selected_book.uploaded_by.first_name}} {{selected_book.uploaded_by.last_name}}</p>
+                <p>Added on: {{selected_book.created_at}}</p>
+                <p>Last Updated: {{selected_book.updated_at}}</p>
+                <p>Description: {{selected_book.desc}}</p>
+            </div>
+            <div class="fave-info w-50 d-inline-block align-top float-right">
+                <h2>Users Who Liked This Book:</h2>
+                <ul>
+                    {% for fan in selected_book.users_who_like.all %}
+                    <li>{{fan.first_name}} {{fan.last_name}}</li>
+                    {%endfor%}
+                </ul>
+                {% if user not in selected_book.users_who_like.all%}
+                <a href="/addfavorite/{{selected_book.id}}">Add to Favorites</a>
+                {% else %}
+                <a href="/deletefavorite/{{selected_book.id}}">Un-Favorite</a>
+                {% endif %}
+
+            </div>
+            {% endif %}
+        </div>
+
+    </div>
+
+</body>
+
+</html>

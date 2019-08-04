@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'got_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'got_app/css/style.css' %}">
+    <title>Success</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-nav d-flex bg-warning">
+            <div class="p-2 mr-auto">
+                <h1>Got GOT?</h1>
+            </div>
+            <div class="p-2">
+                <a href="/dashboard">Dashboard</a>
+            </div>
+            <div class="p-2">
+                <a href="/events">Upcoming Shows</a>
+            </div>
+            <div class="p-2">
+                <a href="/logout">Log Out</a>
+            </div>
+        </div>
+        <dvi class="main">
+            <div class="row">
+                <div class="stats col-5 pt-5">
+                    <h3>Stats</h3>
+                    <div class="card col-8 border-primary">
+                        <div class="card-body">
+                            <p class="card-text">Name: {{registered_user.first_name}} {{registered_user.last_name}}</p>
+                            <p class="card-text"># of Events Hosted: {{hosted_events.count}}</p>
+                            <p class="card-text"># of Events Joined: {{registered_user.attendee.all.count}}</p>
+                            <p class="card-text">Registration date: {{registered_user.created_at}}</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="create-btn col-7 pt-5">
+                    <a class="btn btn-primary offset-5" href="/new-event">Create a TV Show</a>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table mt-3">
+                    <thead>
+                        <tr>
+                            <th scope="col">Name</th>
+                            <th scope="col">Location</th>
+                            <th scope="col">When</th>
+                            <th scope="col">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <h2 class="pt-3">Your Upcoming Events:</h2>
+                        {% for event in registered_user.attendee.all %}
+                        <tr>
+                            <td>{{event.title}}</th>
+                            <td>{{event.location}}</td>
+                            <td>{{event.event_date}}</td>
+                            <td><a href="/events/{{event.id}}">View</a>  |  <a href="/events/{{event.id}}/edit">Edit</a></td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+        </dvi>
+
+
+    </div>
+
+</body>
+
+</html>

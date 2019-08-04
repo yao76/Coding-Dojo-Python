@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'dojo_reads_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'dojo_reads_app/css/style.css' %}">
+    <title>Success</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-nav d-flex" style="background-color: #4267b2;color: white">
+            <div class="p-2 mr-auto">Welcome {{registered_user.first_name}}!</div>
+            <div class="p-2">
+                <a href="/add" style="color: white">Add Book and Review</a>
+            </div>
+            <div class="p-2">
+                <a href="/logout" style="color: white">Log Out</a>
+            </div>
+        </div>
+        <div class="container main mt-5">
+            <div class="row">
+                <div class="col-6">
+                    <h3>Recent Book Reviews:</h3>
+                    {% for review in recent_reviews %}
+                    <div class="card">
+                        <h4 class="card-title"><a href="/books/{{review.reviewed_book.id}}">{{review.reviewed_book.title}}</a></h4>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Rating: {{review.rating}}</li>
+                            <li class="list-group-item"><a
+                                    href="/users/{{review.reviewer.id}}">{{review.reviewer.first_name}}</a> says:
+                                {{review.review_content}}</li>
+                            <li class="list-group-item">Posted on: {{review.created_at}}</li>
+                        </ul>
+                    </div>
+                    {% endfor %}
+                </div>
+                <div class="col-4">
+                    <h3>Other Book Reviews:</h3>
+                    <ul>
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="scroll">
+                                    {% for review in all_reviews %}
+                                    <li>
+                                        <a href="/books/{{review.reviewed_book.id}}">{{review.reviewed_book.title}}</a>
+                                    </li>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </ul>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>

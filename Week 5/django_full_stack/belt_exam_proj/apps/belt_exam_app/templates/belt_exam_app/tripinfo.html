@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'belt_exam_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'belt_exam_app/css/style.css' %}">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-nav d-flex p-1" style="background-color: #4267b2;color: white">
+            <div class="p-2 mr-auto">Welcome {{registered_user.first_name}}! Read about this trip!</div>
+            <div class="p-2">
+                <a href="/success" class="btn btn-primary pt-0 pb-0 pr-3 pl-3 m-0" style="color: white">Dashboard</a>
+            </div>
+            <div class="p-2">
+                <a href="/logout" style="color: white">Log Out</a>
+            </div>
+        </div>
+
+
+        <div class="main">
+            <div class="row">
+                <div class="stats col-8 pt-5">
+                    <div class="card col border-primary p-0">
+                        <div class="card-header">{{trip.destination}}</div>
+                        <div class="card-body">
+                            <p class="card-text">Start Date: {{trip.start_date}}</p>
+                            <p class="card-text">End Date: {{trip.end_date}} </p>
+                            <p class="card-text">Created On: {{trip.created_at}}</p>
+                            <p class="card-text">Last Updated: {{trip.updated_at}}</p>
+                            <p class="card-text">Plan: {{trip.plan}}</p>
+                            <p class="card-text">Created By: {{trip.created_by.first_name}}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-8 mt-5">
+                    <div class="card col border-primary p-0">
+                        <div class="card-header">People who've joined this trip:</div>
+                        <div class="card-body">
+                            {% for member in trip.trip_members.all %}
+                            <div class="card-text">{{member.first_name}}</div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+</body>
+
+</html>

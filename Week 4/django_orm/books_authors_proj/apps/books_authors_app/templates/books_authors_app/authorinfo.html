@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Author info</title>
+</head>
+
+<body>
+    <h1>{{selected_author.first_name}} {{selected_author.last_name}}</h1>
+    <p>{{selected_author.id}}</p>
+    <p>{{selected_author.notes}}</p>
+    <ul>
+        {% for key in authors_books %}
+        <li>{{key.title}}</li>
+        {% endfor %}
+    </ul>
+    <form action="/authors/{{a}}/update" method = "post">
+    {% csrf_token %}
+    <select name="all_books1">
+        {% for key in all_books1 %}
+        <option value="{{key.id}}">{{key.title}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Add">
+    </form>
+</body>
+
+</html>

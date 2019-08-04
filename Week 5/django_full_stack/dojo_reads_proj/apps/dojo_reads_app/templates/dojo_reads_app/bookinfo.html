@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'dojo_reads_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'dojo_reads_app/css/style.css' %}">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-nav d-flex" style="background-color: #4267b2;color: white">
+            <div class="p-2 ml-auto">
+                <a href="/books" style="color: white">Home</a>
+            </div>
+            <div class="p-2">
+                <a href="/logout" style="color: white">Logout</a>
+            </div>
+        </div>
+        <div class="jumbotron">
+            <h1>
+                Title: {{book.title}}
+            </h1>
+            Author: {{author.name}}
+        </div>
+        <div class="review_content">
+            <div class="row">
+                <div class="col-8">
+                    <h3>Reviews</h3>
+                    <hr style="border-color: black">
+                    {% for review in reviews %}
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Rating: {{review.rating}}</li>
+                            <li class="list-group-item"><a href="/users/{{review.reviewer.id}}">{{review.reviewer.first_name}}</a> says:
+                                {{review.review_content}}</li>
+                            <li class="list-group-item">Posted on: {{review.created_at}}</li>
+                        </ul>
+                    </div>
+                    {% if registered_user.id == review.reviewer.id %}
+                    <form action="/deletereview/{{review.id}}" method="POST">
+                        {% csrf_token %}
+                        <button class="btn btn-danger mt-3 offset-5">Delete this review</button>
+                    </form>
+                    {% endif %}
+                    <hr style="border-color: black">
+                    {% endfor %}
+                    
+                </div>
+                <div class="col-4">
+                    <h3>Add a review</h3>
+                    <form action="/books/{{book.id}}/add" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group row">
+                            <div class="col-12">
+                                <textarea class="form-control" id="review" name="review" rows="5"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="Rating" class="col-2 col-form-label">Rating</label>
+                            <div class="col-3">
+                                <select class="selectpicker form-control" name="rating">
+                                    <option>5</option>
+                                    <option>4</option>
+                                    <option>3</option>
+                                    <option>2</option>
+                                    <option>1</option>
+                                </select>
+                            </div>
+                        </div>
+                        
+                        <button class="btn btn-primary float-right">Submit Review</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+
+</html>

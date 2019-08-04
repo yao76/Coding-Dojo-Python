@@ -1,0 +1,14 @@
+/* * {
+    outline: 1px dotted red;
+} */
+
+
+
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+
+body {
+    padding: 150px;
+}

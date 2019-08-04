@@ -1,0 +1,9 @@
+.jumbotron {
+    background-color: slategray !important;
+    margin-bottom: 0px !important;
+    margin-top: 2px;
+}
+
+.card {
+    margin-top: 2px;
+}

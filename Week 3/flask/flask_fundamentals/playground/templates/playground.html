@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+        <h1>Welcome!</h1>
+
+        {% for x in range(0,boxes): %}
+        <div class = box style="background-color: {{box_color}}"> </div>
+        {% endfor %}
+
+
+
+        <style>
+            .box {
+                width: 100px;
+                height: 100px;
+                background-color: lightblue;
+                margin: 40px;
+                display: inline-block;
+                
+            }
+            body {
+                text-align: center;
+            }
+        </style>
+
+</body>
+</html>

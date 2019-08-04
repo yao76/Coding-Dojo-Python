@@ -1,0 +1,88 @@
+.container {
+    margin-top: 100px;
+    text-align: center;
+}
+.box1 {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    display: inline-block;
+    text-align: center;
+
+}
+
+.box2 {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    display: inline-block;
+    text-align: center;
+
+}
+
+.box3 {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    display: inline-block;
+    text-align: center;
+
+}
+
+.box4 {
+    width: 200px;
+    height: 200px;
+    border: 1px solid black;
+    display: inline-block;
+    text-align: center;
+
+}
+
+.activities {
+    width: 820px;
+    height: 110px;
+    overflow: scroll;
+    text-align: left;
+    margin-left: 145px;
+    /* overflow-anchor: auto; */
+    border: 1px solid black;
+}
+.activity_text {
+    text-align: left;
+    margin-left: 145px;
+    margin-top: 20px;
+    margin-bottom: 0px;
+}
+td {
+    border: 1px solid black;
+    width: 100px;
+}
+.gold_table {
+    vertical-align: top;
+    display: inline-block;
+    margin-bottom: 3px;
+    padding-top: 5px;
+    color: white;
+}
+
+
+.clear-btn{
+    display: inline-block;
+    width: 50px;
+}
+
+/* .list-group {
+    overflow-anchor: auto;
+    height: 1px;
+} */
+
+.lost {
+    color: red;
+}
+
+.won, .Earned {
+    color: green;
+}
+.header {
+    padding: 5px;
+}

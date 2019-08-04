@@ -1,0 +1,104 @@
+Snippets
+
+Spaced out nav bar, put mr-auto on the element you want on the left, everythin after will go on the right
+<div class="top-nav d-flex" style="background-color: #4267b2;color: white">
+        <div class="p-2 mr-auto">Welcome {{registered_user.first_name}}!</div>
+        <div class="p-2">
+            <a href="/logout" style="color: white">Log Out</a>
+        </div>
+</div>
+
+
+errors:
+in process methods:
+errors = User.objects.basic_validator(request.POST)
+    if len(errors) > 0:
+        for key, value in errors.items():
+            messages.error(request, value, extra_tags=key)
+        return redirect("/")
+
+ <input type="password" class="form-control" name="loginpassword" placeholder="Password">
+    {% for message in messages %}
+    {% if message.extra_tags == "loginpassword" %}
+    <li style="list-style: none">{{ message }}</li>
+    {% endif %}
+    {% endfor %}
+
+
+
+
+    To get all books that a user has reviewed:
+    Models:
+	reviewed_book = models.ForeignKey(Book, related_name="reviews")
+	Views:
+	this_user = User.objects.get(id=user_id)
+	this_user_reviews = this_user.reviews.all()
+	context = {
+        "user" : site_user,
+        "user_reviews" : this_user_reviews
+    }
+	HTML:
+	{% for review in user_reviews %}
+    review.reviewed_book.title To get the title of the reviewed book
+     {% endfor %}
+
+
+
+
+
+
+
+Drop down menu to add authors, with default value disabled
+<select class="selectpicker form-control" name=author>
+    <option value="" disabled selected>Pick an author</option>
+    {% for author in authors %}
+    <option value="Author{{author.id}}">{{author.name}}</option>
+{% endfor %}
+</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class Trip(models.Model):
+    destination = models.CharField(max_length=255)
+    start_date = models.CharField(max_length=255)
+    end_date = models.CharField(max_length=12)
+    plan = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    trip_members = models.ManyToManyField(User, related_name="joined_trips")
+    created_by = models.ForeignKey(User, related_name="created_trips")
+    objects = TripManager()
+
+
+
+
+    {% for user in users %}
+				  <tr>
+				    <td>{{user.name}}</td>
+			{% for trip in plannedtrips %}
+				{% if trip.user_planned_id == user.id %}
+				    <td>{{trip.destination}}</td>
+				    <td>{{trip.trip_start}}</td>
+				    <td>{{trip.trip_end}}</td>
+				    <td> 
+				    	<form class ="form-inline" method="post" action="/join"> 
+				    		{% csrf_token %}
+							<input type="hidden" value="{{loggedinuser.id}}" name="id"> 
+							<input type="hidden" value="{{trip.id}}" name="tripid"> 
+				    		<input  class="btn btn-sm" type="submit" value="Join"></form>
+				 	</tr>
+				{% endif %}
+			{% endfor %}
+		{% endfor %}

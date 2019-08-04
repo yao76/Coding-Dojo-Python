@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'loginreg_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'loginreg_app/css/style.css' %}">
+    <title>Success</title>
+</head>
+
+<body>
+    <div class="container">
+        <h2>
+            Success! Welcome {{registered_user.first_name}}!
+        </h2>
+        {% if messages %}
+        <ul class="messages" style="list-style: none;padding:0px">
+            {% for message in messages %}
+            <li class=messages style="color: green">{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+
+        <form action="/logout" method="POST">
+            <div>
+                {% csrf_token %}
+                <input type="submit" class="btn btn-primary" name='logout-btn' value="Log Out">
+            </div>
+        </form>
+    </div>
+
+</body>
+
+</html>

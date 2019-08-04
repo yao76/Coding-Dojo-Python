@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'got_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'got_app/css/style.css' %}">
+    <title>Shows</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-nav d-flex bg-warning">
+            <div class="p-2 mr-auto">
+                <h1>Got GOT?</h1>
+            </div>
+            <div class="p-2">
+                <a href="/dashboard">Dashboard</a>
+            </div>
+            <div class="p-2">
+                <a href="/events">Upcoming Shows</a>
+            </div>
+            <div class="p-2">
+                <a href="/logout">Log Out</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <table class="table mt-3">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Location</th>
+                        <th scope="col">When</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for event in all_user_events %}
+                    <tr>
+                        <td>{{event.title}}</th>
+                        <td>{{event.location}}</td>
+                        <td>{{event.event_date}}</td>
+                        <td><a href="/events/{{event.id}}">View</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+
+</html>

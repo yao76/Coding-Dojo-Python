@@ -1,0 +1,9 @@
+1. source py3Env/Scripts/activate - activates virtual env
+2. pip install Django==1.11.9 - installs version 1.11.9 of Django in the virtual env
+3. pip list - lists all installed packages in virtual env, not many packages listed
+4. deactivate - deactivates the virtual env and goes back to normal env
+5. pip3 list - lists many packages installed in the normal env
+6. myEnvironments/py3Env/Scripts/activate - activates virtual env
+7. pip install Django==1.11.9 - requirements already satisfied
+8. pip freeze - output can be dumped into a requirements.txt file and used later to re-construct the frozen environment 
+9. pip freeze > requirements.txt creates a txt file with pytz==2019.1 in it.

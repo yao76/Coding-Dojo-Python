@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <h1>All Movies</h1>
+    <ul>
+    {% for movie in all_the_movies %}
+        <li>{{ movie.title }}</li>
+        <li>{{ movie.description }}</li>
+        <li>{{ movie.release_date }}</li>
+        <li>{{ movie.duration }}</li>
+    {% endfor %}
+    </ul> 
+</body>
+</html>

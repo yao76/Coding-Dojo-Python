@@ -1,0 +1,31 @@
+h1 {
+    color: red;
+}
+.addtitle {
+    display: inline-block;
+}
+
+.adddesc {
+    display: inline-block;
+}
+
+.book-title-desc {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.book-table {
+    display: inline-block;
+    vertical-align: top;
+    width: 145px;
+}
+.author-table {
+    display: inline-block;
+    vertical-align: top;
+    width: 145px;
+}
+.add_author {
+    display: inline-block;
+    width: 500px;
+}
+

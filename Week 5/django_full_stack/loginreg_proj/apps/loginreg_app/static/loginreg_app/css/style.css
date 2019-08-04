@@ -1,0 +1,13 @@
+h1 {
+    color:red;
+}
+
+.registration {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.login {
+    display: inline-block;
+    vertical-align: top;
+}

@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'belt_exam_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'belt_exam_app/css/style.css' %}">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-nav d-flex p-1" style="background-color: #4267b2;color: white">
+            <div class="p-2 mr-auto">Welcome {{registered_user.first_name}}! Create a trip!</div>
+            <div class="p-2">
+                <a href="/logout" style="color: white">Log Out</a>
+            </div>
+        </div>
+        <p class="text-danger">A trip destination must consist of at least 3 characters!</p>
+        <p class="text-danger">A plan must be provided!</p>
+        <div class="main border border-primary" style="width: 800px">
+            <div class="main p-2">
+                <form action="/processnewtrip" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="destination" class="col-2 col-form-label col-form-label">Destination:</label>
+                        <div class="col-5">
+                            <input type="text" class="form-control" id="colFormLabel" name="destination"
+                                placeholder="Destination">
+                            {% for message in messages %}
+                            {% if message.extra_tags == "destination-blank" %}
+                            <li style="list-style: none; color:red">{{ message }}</li>
+                            {% elif message.extra_tags == "destination-length" %}
+                            <li style="list-style: none; color:red">{{ message }}</li>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="date" class="col-2 col-form-label col-form-label">Start Date:</label>
+                        <div class="col-3">
+                            <input type="date" class="form-control" id="colFormLabel" name="start_date">
+                            {% for message in messages %}
+                            {% if message.extra_tags == "blank" %}
+                            <li style="list-style: none; color:red">{{ message }}</li>
+                            {% elif message.extra_tags == "past_date" %}
+                            <li style="list-style: none; color:red">{{ message }}</li>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="date" class="col-2 col-form-label col-form-label">End Date:</label>
+                        <div class="col-3">
+                            <input type="date" class="form-control" id="colFormLabel" name="end_date">
+                            {% for message in messages %}
+                            {% if message.extra_tags == "blank" %}
+                                <li style="list-style: none; color:red">{{ message }}</li>
+                            {% elif message.extra_tags == "invalid_date" %}
+                                <li style="list-style: none; color:red">{{ message }}</li>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="plan" class="col-2 col-form-label col-form-label">Plan:</label>
+                        <div class="col-6">
+                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                                name="plan"></textarea>
+                            {% for message in messages %}
+                            {% if message.extra_tags == "blank" %}
+                            <li style="list-style: none; color:red">{{ message }}</li>
+                            {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+            </div>
+            <a href="/success" class="btn btn-primary offset-3 mb-3 pl-3 pr-3 pt-1.5 pb-1.5">Go Back</a>
+            <button class="btn btn-primary mb-3">Create an Event</button>
+            </form>
+        </div>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'wall_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'wall_app/css/style.css' %}">
+    <title>Wall</title>
+</head>
+
+<body>
+    <div class="container container_wall p-0">
+        <div class="top-nav d-flex" style="background-color: #4267b2;color: white">
+            <div class="p-2 mr-auto">Coding Dojo Wall</div>
+            <div class="p-2">Welcome {{registered_user.first_name}}!</div>
+            <div class="p-2">
+                <a href="/logout" style="color: white">Log Out</a>
+            </div>
+        </div>
+        <div class="wall-container p-2">
+            <form action="/addmessage" method="POST">
+                {% csrf_token %}
+                <div class="form-group row ">
+                    <div class="col-md-12">
+                        <label for="message">Post a message</label>
+                        <textarea class="form-control" id="message" name="add_message" rows="5"
+                            placeholder="What's on your mind, {{registered_user.first_name}}?"></textarea>
+                    </div>
+                </div>
+                <div class="text-right">
+                    <input type="submit" class="btn btn-primary" name='create-btn' value="Post a message">
+                </div>
+            </form>
+            <div class="message">
+                {% for message in all_messages reversed %}
+                <div class="card card_background">
+                    <div class="post_header d-flex w-100 justify-content-between">
+                        <h6 class="m-1">{{ message.posted_by.first_name }} {{ message.posted_by.last_name }}</h6>
+                        <span class="small">{{message.created_at|timesince}} ago</span>
+                    </div>
+                    <p class="m-0 p-1 d-inline-block content">{{message.message_content}}</p>
+                    {% if message.posted_by_id == registered_user.id %}
+                    <form action="/deletemessage" method="POST">
+                        {% csrf_token %}
+                        <div class="text-right">
+                            <input type="submit" class="btn btn-danger" name='create-btn' value="Delete Message">
+                        </div>
+                    </form>
+                    {% endif %}
+                    {% if messages %}
+                    <ul class="messages" style="list-style: none;padding:0px">
+                        {% for err in messages %}
+                        <li class=messages style="color: red">{{ err }}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <div class="comment">
+                        {% for comment in message.child_comments.all %}
+                        <div class="list-group-item">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h6 class="m-1">{{comment.posted_by.first_name}} {{comment.posted_by.last_name}}</h6>
+                                <span class="small">{{comment.created_at}}</span>
+                            </div>
+                            <p class="m-1 d-inline-block content">{{comment.comment_content}}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <form action="/addcomment" method="POST">
+                        {% csrf_token %}
+                        <input type="hidden" name="message-parent-id" id="message-parent-id" value="{{message.id}}">
+                        <textarea class="form-control" name="comment_from_form" id="comment_from_form" rows="4"
+                            placeholder="Write comment here..."></textarea>
+                        <input type="submit" class="btn btn-success float-right mt-3 mb-3" name='create-btn'
+                            value="Post a comment">
+                    </form>
+                </div>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>

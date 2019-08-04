@@ -1,0 +1,8 @@
+regex routing
+Note: ALL route patterns at the app level should end with $
+
+^ - indicates a matching string starts with whatever follows this character
+Example: '^a' matches 'anna' but not 'banana'
+$ - indicates a matching string ends with whatever precedes this character
+Example: 'a$' matches 'anna' and 'banana' but not 'fan'
+Example: '^a$' matches only the letter 'a'

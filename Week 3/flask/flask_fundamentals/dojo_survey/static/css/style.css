@@ -1,0 +1,25 @@
+.dojo_location_text {
+    display: inline-block;
+    width: 100px;
+}
+
+.locations {
+    display: block;
+}
+
+.fav_languages_text {
+    display: inline-block;
+}
+
+.languages {
+    display: inline-block;
+}
+
+.comment_box {
+    display: block;
+}
+
+.button {
+    display: block;
+    margin-left: 300px;
+}

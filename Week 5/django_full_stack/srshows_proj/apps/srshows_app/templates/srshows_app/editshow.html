@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Show</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'srshows_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'srshows_app/css/style.css' %}">
+</head>
+
+<body>
+    <div class="container text-left">
+        <div class="jumbotron d-flex justify-content-between">
+            <h1 class="d-inline-block">TV Show {{shows.id}}</h1>
+            <a class="d-inline-block text-right" href="/allshows">Go Back to All Shows</a>
+        </div>
+        <form action="/shows/{{shows.id}}/update" method="post">
+            {% csrf_token %}
+            <div class="form-group col-md-12" style="padding:0px">
+                <label for="title">Title</label> <br>
+                <input type="text" class="form-control" value={{shows.title}} name="title">
+            </div>
+            <div class="form-row form-inline">
+                <div class="form-group col-md-6">
+                    <label for="network" style="margin-right: 10px">Network</label>
+                    <input type="text" class="form-control" name="network" value="{{shows.network}}">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="release_date" style="margin-right: 10px">Release Date</label>
+                    <input type="date" name="release_date" value={{shows.release_date}}>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-12">
+                    <label for="description">Description:</label>
+                    <textarea class="form-control" name="description" rows="5">{{shows.description}}</textarea>
+                </div>
+            </div>
+            <div class="text-center">
+                <input type="submit" class="btn btn-primary" name='create-btn' value="Update">
+            </div>
+        </form>
+        <div class="text-center">
+            <a href="/shows/{{shows.id}}">Go to Show</a>
+        </div>
+
+        {% if messages %}
+        <ul class="messages">
+        {% for message in messages %}
+        <li class = messages>{{ message }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'login_reg_final_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'login_reg_final_app/css/style.css' %}">
+    <title>Success</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-nav d-flex" style="background-color: #4267b2;color: white">
+            <div class="p-2 mr-auto">Welcome {{registered_user.first_name}}!</div>
+            <div class="p-2">
+                <a href="/logout" style="color: white">Log Out</a>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

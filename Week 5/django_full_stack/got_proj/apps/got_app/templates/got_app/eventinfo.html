@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'got_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'got_app/css/style.css' %}">
+    <title>Event info</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-nav d-flex bg-warning">
+            <div class="p-2 mr-auto">
+                <h1>Got GOT?</h1>
+            </div>
+            <div class="p-2">
+                <a href="/dashboard">Dashboard</a>
+            </div>
+            <div class="p-2">
+                <a href="/events">Upcoming Shows</a>
+            </div>
+            <div class="p-2">
+                <a href="/logout">Log Out</a>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="stats col-5 pt-5">
+                <div class="card col-8 border-primary">
+                    <div class="card-header">{{event.title}}</div>
+                    <div class="card-body">
+                        <p class="card-text">Genre: {{event.genre}}</p>
+                        <p class="card-text">When: {{event.event_date}} </p>
+                        <p class="card-text">Location: {{event.location}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <h2 class="pt-4">Attendees</h2>
+        </div>
+        {% for attendee in event.attendees.all %}
+        <div class="row">
+            <p>{{attendee.first_name}}</p>
+        </div>
+        {% endfor %}
+        <div class="row">
+            <div class="col-3">
+                <form action="/processjoin/{{event.id}}" method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-primary">Join Event</button>
+                </form>
+            </div>
+            <div class="col-3">
+                <a href="/events">Go back</a>
+            </div>
+        </div>
+        {% if event.created_by_id == registered_user.id %}
+        <div class="row pt-3">
+            <form action="/processcancel/{{event.id}}">
+                {% csrf_token %}
+                <button class="btn btn-primary">Cancel Event</button>
+            </form>
+            
+        </div>
+        {% endif %}
+    </div>
+</body>
+
+</html>

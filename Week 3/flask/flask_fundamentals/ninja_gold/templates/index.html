@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <div class="container bg-secondary">
+        <div class="header">
+            <table class = gold_table>
+                <tr class = header_row>
+                    Your Total Gold: <td>{{session['total_gold']}}</td>
+                </tr> 
+            </table>
+            <form action="/clear" class = "clear-btn">
+                <input class = "btn btn-outline-warning" type="submit" value='Clear'>
+            </form>
+        </div>
+                
+        <div class="box1 bg-info">
+            <h1>Farm</h1>
+            <p>(earns 10-20 gold)</p>
+            <form action="/process_money" method="post">
+                <input type="hidden" name="hidden" value="farm">
+                <input type="submit" class="btn btn-success" name='Farm' value="Find Gold!">
+            </form>
+        </div>
+        <div class="box2 bg-warning">
+            <h1>Cave</h1>
+            <p>(earns 5-10 gold)</p>
+            <form action="/process_money" method="post">
+                <input type="hidden" name="hidden" value="cave">
+                <input type="submit" class="btn btn-success" name='cave' value="Find Gold!">
+            </form>
+        </div>
+        <div class="box3 bg-primary">
+            <h1>House</h1>
+            <p>(earns 2-5 gold)</p>
+            <form action="/process_money" method="post">
+                <input type="hidden" name="hidden" value="house">
+                <input type="submit" class="btn btn-success" name='House' value="Find Gold!">
+            </form>
+        </div>
+        <div class="box4 bg-danger">
+            <h1>Casino</h1>
+            <p>(earns/takes 0-50 gold)</p>
+            <form action="/process_money" method="post">
+                <input type="hidden" name="hidden" value="casino">
+                <input type="submit" class="btn btn-success" name='Casino' value="Find Gold!">
+            </form>
+        </div>
+        <p class="activity_text">Activities: </p>
+        <div class = "activities bg-dark">
+            <ul class="list-group">
+                {% for i in range(session['activities']|length) %}
+                        <li class = "{{session['state']}}">{{session['activities'][i]}}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+</body>
+
+</html>

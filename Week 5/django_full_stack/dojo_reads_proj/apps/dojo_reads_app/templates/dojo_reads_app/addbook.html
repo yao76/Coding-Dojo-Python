@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'dojo_reads_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'dojo_reads_app/css/style.css' %}">
+    <title>Add Book</title>
+</head>
+
+<body>
+    <div class="container">
+        <div class="top-nav d-flex" style="background-color: #4267b2;color: white">
+            <div class="p-2 ml-auto">
+                <a href="/books" style="color: white">Home</a>
+            </div>
+            <div class="p-2">
+                <a href="/logout" style="color: white">Logout</a>
+            </div>
+        </div>
+
+        <div class="container main">
+            <h3>Add a New Book Review</h3>
+            <div class="main-content">
+                <form action="/processaddbook" method="POST">
+                    {% csrf_token %}
+                    <div class="form-group row">
+                        <label for="title" class="col-2 col-form-label">Title</label>
+                        <div class="col-6">
+                            <input type="text" class="form-control" name="title" id="title" placeholder="Title">
+                        </div>
+                    </div>
+                    <p>Author:</p>
+                    <div class="form-group ml-4">
+                        <div class="form-group row">
+                            <label for="title" class="col-3 col-form-label">Choose an author from the list</label>
+                            <div class="col-6">
+                                <select class="selectpicker form-control" name=author>
+                                    <option value="" disabled selected>Pick an author</option>
+                                    {% for author in authors %}
+                                    <option value="Author{{author.id}}">{{author.name}}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+
+                        </div>
+                        <div class="form-group row">
+                            <label for="title" class="col-3 col-form-label">Or Add a New Author:</label>
+                            <div class="col-6">
+                                <input type="text" class="form-control" id="author" name = added_author placeholder="Author">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="review" class="col-2 col-form-label">Review</label>
+                        <div class="col-6">
+                            <textarea class="form-control" id="review" name="review" rows="5"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="Rating" class="col-2 col-form-label">Rating</label>
+                        <div class="col-1">
+                            <select class="selectpicker form-control" name = "rating">
+                                <option>5</option>
+                                <option>4</option>
+                                <option>3</option>
+                                <option>2</option>
+                                <option>1</option>
+                            </select>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary offset-7">Add Book and Review</button>
+            </form>
+        </div>
+    </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,20 @@
+* {
+    outline: 1px dotted red;
+}
+h1 {
+    color: red;
+}
+tr td{
+    height: 40px;
+    width: 40px;
+}
+
+.color1 {
+    background-color: red;
+}
+
+.color2 {
+    background-color: black;
+}
+
+

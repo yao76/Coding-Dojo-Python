@@ -1,0 +1,75 @@
+Create 5 books with the following names: C Sharp, Java, Python, PHP, Ruby
+Book.objects.create(title="C Sharp", desc="Book Desc")
+Book.objects.create(title="Java", desc="Book Desc")
+Book.objects.create(title="Python", desc="Book Desc")
+Book.objects.create(title="PHP", desc="Book Desc")
+Book.objects.create(title="Ruby", desc="Book Desc")
+
+Create 5 different authors: Jane Austen, Emily Dickinson, Fyodor Dostoevksy, William Shakespeare, Lau Tzu
+Author.objects.create(first_name="Jane", last_name="Austen")
+Author.objects.create(first_name="Emily", last_name="Dickson")
+Author.objects.create(first_name="Fyoder", last_name="Dostoevksy")
+Author.objects.create(first_name="William", last_name="Shakespeare")
+Author.objects.create(first_name="Lau", last_name="Tzu")
+
+Added a line to Book class, selected 1, added value "Book Notes"
+python manage.py makemigrations
+python manage.py migrate
+
+Change the name of the C Sharp book to C#
+book_to_update = Book.objects.get(id=1)
+book_to_update.title = "C#"
+
+Change the first name of the 4th author to Bill
+author_four = Author.objects.get(id=4)
+author_four.first_name = "Bill"
+
+Assign the first author to the first 2 books
+first_author = Author.objects.get(id=1)
+first_book = Book.objects.get(id=1)
+second_book = Book.objects.get(id=2)
+first_author.books.add(first_book)
+first_author.books.add(second_book)
+first_author.books.all().values() to check if we added it properly. first author should now have the first 2 books listed as values
+
+Assign the second author to the first 3 books
+third_book = Book.objects.get(id=3)
+second_author = Author.objects.get(id=2)
+second_author.books.add(first_book)
+second_author.books.add(second_book)
+second_author.books.add(third_book)
+second_author.books.all().values() to double check
+
+Assign the third author to the first 4 books
+third_author = Author.objects.get(id=3)
+fourth_book = Book.objects.get(id=4)
+third_author.books.add(first_book)
+third_author.books.add(second_book)
+third_author.books.add(third_book)
+third_author.books.add(fourth_book)
+third_author.books.all().values()
+
+Assign the 4th author to the first 5 books
+fourth_author = Author.objects.get(id=4)
+fifth_book = Book.objects.get(id=5)
+fourth_author.books.add(first_book)
+fourth_author.books.add(second_book)
+fourth_author.books.add(third_book)
+fourth_author.books.add(fourth_book)
+fourth_author.books.add(fifth_book)
+
+Retrieve all the authors for the 3rd book
+third_book.authors.all()
+
+Remove the first author of the 3rd book
+third_book.authors.remove(first_author)
+
+Add the 5th author as one of the authors of the 2nd book
+fifth_author = Author.objects.get(id=5)
+second_book.authors.add(fifth_author)
+
+Find all the books that the 3rd author is part of
+third_author.books.all()
+
+Find all the authors that contributed to the 5th book
+fifth_book.authors.all()

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'user_dashboard_app/css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'user_dashboard_app/css/style.css' %}">
+    <title>Login</title>
+</head>
+
+<body>
+    <div class="container d-flex justify-content-around shadow-lg p-3 mb-5 bg-white rounded">
+        <div class="registration shadow-lg p-3 mb-5 bg-white rounded">
+            <h1 class="text-center">Registration</h1>
+            <form action="/processregistration" method="POST">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label for="first_name" class="col-sm-4 col-form-label">First Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="first_name" placeholder="First Name">
+                        {% for message in messages %}
+                        {% if message.extra_tags == "first_name" %}
+                        <li style="list-style: none; color:red">{{ message }}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="last_name" class="col-sm-4 col-form-label">Last Name</label>
+                    <div class="col-sm-8">
+                        <input type="text" class="form-control" name="last_name" placeholder="Last Name">
+                        {% for message in messages %}
+                        {% if message.extra_tags == "last_name" %}
+                        <li style="list-style: none; color:red">{{ message }}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="email" class="col-sm-4 col-form-label">Email</label>
+                    <div class="col-sm-8">
+                        <input type="email" class="form-control" name="email" placeholder="Email">
+                        {% for message in messages %}
+                        {% if message.extra_tags == "email" %}
+                        <li style="list-style: none; color:red">{{ message }}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col-sm-4 col-form-label">Password</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" name="password" placeholder="Password">
+                        {% for message in messages %}
+                        {% if message.extra_tags == "password" %}
+                        <li style="list-style: none; color:red">{{ message }}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="confirm_pw" class="col-sm-4 col-form-label">Confirm PW</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" name="confirm-pw" placeholder="Confirm PW">
+                        {% for message in messages %}
+                        {% if message.extra_tags == "confirm-pw" %}
+                        <li style="list-style: none; color: red">{{ message }}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="birthday" class="col-sm-4 col-form-label">Birthday</label>
+                    <div class="col-sm-8">
+                        <input type="date" name="bday">
+                        {% for message in messages %}
+                        {% if message.extra_tags == "bday" %}
+                        <li style="list-style: none; color: red">{{ message }}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input type="submit" class="btn btn-primary" name='create-btn' value="Register">
+                </div>
+            </form>
+        </div>
+        <div class="login shadow-lg p-3 mb-5 rounded">
+            <h1 class="text-center" style="color: white">Login</h1>
+            <form action="/processlogin" method="POST">
+                {% csrf_token %}
+                <div class="form-group row">
+                    <label for="email" class="col-sm-4 col-form-label" style="color: white">Email</label>
+                    <div class="col-sm-8">
+                        <input type="email" name="loginemail" class="form-control" placeholder="Email">
+                        {% for message in messages %}
+                        {% if message.extra_tags == "loginemail" %}
+                        <li style="list-style: none; color:red">{{ message }}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="password" class="col-sm-4 col-form-label" style="color: white">Password</label>
+                    <div class="col-sm-8">
+                        <input type="password" class="form-control" name="loginpassword" placeholder="Password">
+                        {% for message in messages %}
+                        {% if message.extra_tags == "loginpassword" %}
+                        <li style="list-style: none; color:red">{{ message }}</li>
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="text-center">
+                    <input type="submit" class="btn btn-light" name='create-btn' value="Login" style="color: #0062cc">
+                </div>
+            </form>
+        </div>
+
+
+</body>
+
+</html>

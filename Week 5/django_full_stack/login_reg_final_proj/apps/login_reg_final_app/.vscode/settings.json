@@ -1,0 +1,6 @@
+{
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.pythonPath": "D:\\Documents\\Coding Dojo\\python\\django\\django_full_stack\\login_reg_env\\Scripts\\python.exe",
+    "python.formatting.provider": "black"
+}

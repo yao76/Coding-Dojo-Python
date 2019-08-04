@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Simple Markers</title>
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+        #map {
+            height: 50%;
+            width: 50%;
+
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="jumbotron"></div>
+    <div id="map"></div>
+    <!-- <script>
+
+        function initMap() {
+            var myLatLng = { lat: 47.606, lng: -122.3321 };
+            var myLatLng2 = { lat: 34.606, lng: -122.3321 };
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Butthole!'
+            });
+            var marker2 = new google.maps.Marker({
+                position: myLatLng2,
+                map: map,
+                title: 'Butthole2!'
+            });
+        }
+    </script> -->
+
+
+
+
+
+    <script type="text/javascript">
+        function initMap() {
+            var myLatLng = { lat: 47.606, lng: -122.3321 };
+            var myLatLng2 = { lat: 34.606, lng: -122.3321 };
+
+            var map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 4,
+                center: myLatLng
+            });
+
+            var marker = new google.maps.Marker({
+                position: myLatLng,
+                map: map,
+                title: 'Butthole!'
+            });
+            var marker2 = new google.maps.Marker({
+                position: myLatLng2,
+                map: map,
+                title: 'Butthole2!'
+            });
+        }
+        var map;
+        var coords;
+        var infowindow;
+        var markerPos;
+        var markers;
+        var place;
+        var directionsDisplay;
+        var directionsService;
+
+        //Retrives the location from the browser
+        x = navigator.geolocation;
+        x.getCurrentPosition(success, failure);
+
+        function success(position) {
+
+            directionsDisplay = new google.maps.DirectionsRenderer;
+            directionsService = new google.maps.DirectionsService;
+
+            //Get user's longitude and latitude
+            var myLat = position.coords.latitude;
+            var myLong = position.coords.longitude;
+
+            //Creating new object for using the latitude and longitude values with Google Maps
+            coords = new google.maps.LatLng(myLat, myLong);
+
+            //Map options
+            var mapOptions = {
+                zoom: 13,
+                center: coords
+            }
+            map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+            infowindow = new google.maps.InfoWindow();
+
+            directionsDisplay.setMap(map);
+            directionsDisplay.setOptions({ suppressMarkers: false, preserveViewport: true });
+
+            addNearByPlaces(coords);
+
+            // create marker on my postion
+            var myPos = new google.maps.Marker({
+                map: map,
+                position: coords,
+                animation: google.maps.Animation.BOUNCE
+            });
+        }
+
+        function failure() {
+            alert("Geolocation is not supported by the browser.");
+        }
+
+
+        function calculateAndDisplayRoute(directionsService, directionsDisplay, coords, markerPos) {
+
+            //  var selectedMode = document.getElementById('mode').value;
+            directionsService.route({
+                origin: coords,  // Haight.
+                destination: markerPos,  // Ocean Beach.
+                // Note that Javascript allows us to access the constant
+                // using square brackets and a string value as its
+                // "property."
+                travelMode: google.maps.TravelMode.WALKING
+            }, function (response, status) {
+                if (status == 'OK') {
+                    directionsDisplay.setDirections(response);
+                } else {
+                    window.alert('Directions request failed due to ' + status);
+                }
+            });
+        }
+
+        function addNearByPlaces(coords) {
+
+            var service = new google.maps.places.PlacesService(map);
+            var request = {
+                location: coords,
+                //Defines the distance (in meters)
+                radius: 11936,
+                types: ['park']
+            };
+            service.nearbySearch(request, callback);
+
+        }
+
+        function callback(results, status) {
+            var markers = [];
+            if (status === google.maps.places.PlacesServiceStatus.OK) {
+                for (var i = 0; i < results.length; i++) {
+                    markers.push(createMarker(results[i]));
+                }
+            }
+        }
+
+        function createMarker(place) {
+            var placeLoc = place.geometry.location;
+            var marker = new google.maps.Marker({
+                map: map,
+                position: place.geometry.location
+            });
+
+
+            google.maps.event.addListener(marker, 'click', function (event) {
+
+                var latitude = this.position.lat();
+                var longitude = this.position.lng();
+
+                markerPos = { lat: latitude, lng: longitude };
+                calculateAndDisplayRoute(directionsService, directionsDisplay, coords, markerPos);
+                event.LatLng
+                infowindow.setContent(place.name);
+                infowindow.open(map, this);
+            });
+        } 
+
+
+
+    </script>
+
+
+    <script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB4HjeXhplfNZb1oPX3HlrQkFz2FuCzoAs&callback=initMap">
+        </script>
+</body>
+
+</html>

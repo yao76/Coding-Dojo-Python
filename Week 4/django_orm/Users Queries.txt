@@ -1,0 +1,78 @@
+ from apps.users_app.models import *
+
+create 3 users:
+	user1 = Users.objects.create(first_name="Eric", last_name="Fang", email_address="ef@gmail.com", age=26)
+	user2 = Users.objects.create(first_name="Bob", last_name="Bobby", email_address="bobbob@bob.com", age=20)
+ 	user3 = Users.objects.create(first_name="yoho", last_name="yo", email_address="yoyo@aol.com", age=22)
+
+ Retrieve all users:
+ 	Users.objects.all()
+
+ Retrieve the last user:
+ 	Users.objects.last()
+
+ Retrieve the first user:
+ 	Users.objects.first()
+
+ Update the user with id=3 so their last name is Pancakes.
+ 	c=Users.objects.get(id=3)
+ 	c.last_name="Pancakes"
+
+ Delete the user with id=3
+ 	d=Users.objects.get(id=2)
+ 	d.delete()
+
+Get all the users, sorted by their first name
+ 	Users.objects.all().order_by("first_name")
+
+Get all the users, sorted by their first name in descending order
+ 	Users.objects.all().order_by("-first_name")
+
+
+-------------------------------------------------------------------------------------
+
+
+Create one to many relationship
+this_author = Author.objects.get(id=2)	# get an instance of an Author
+my_book = Book.objects.create(title="Little Women", author=this_author)	# set the retrieved author as the author of a new book
+    
+# or in one line...
+my_book = Book.objects.create(title="Little Women", author=Author.objects.get(id=2))
+
+Create a many to many relationship
+class Book(models.Model):
+	title = models.CharField(max_length=255)
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+class Publisher(models.Model):
+	name = models.CharField(max_length=255)
+	books = models.ManyToManyField(Book, related_name="publishers")
+	created_at = models.DateTimeField(auto_now_add=True)
+	updated_at = models.DateTimeField(auto_now=True)
+
+it doesn't matter which model has the ManyToManyField. The model would still work if the Book model has a field named publishers instead (though we would need to put the Publisher class first).
+
+ADDING a relationship between two existing records is simple:
+
+this_book = Book.objects.get(id=4)	# retrieve an instance of a book
+this_publisher = Publisher.objects.get(id=2)	# retrieve an instance of a publisher
+    
+# 2 options that do the same thing:
+this_publisher.books.add(this_book)		# add the book to this publisher's list of books
+# OR
+this_book.publishers.add(this_publisher)	# add the publisher to this book's list of publishers
+
+And to REMOVE a relationship between two existing records:
+
+this_book = Book.objects.get(id=4)	# retrieve an instance of a book
+this_publisher = Publisher.objects.get(id=2)	# retrieve an instance of a publisher
+    
+# 2 options that do the same thing:
+this_publisher.books.remove(this_book)		# remove the book from this publisher's list of books
+# OR
+this_book.publishers.remove(this_publisher)	# remove the publisher from this book's list of publishers
+
+
+The syntax to see all books from a given publisher is the same as when doing a reverse look-up on a ForeignKey relationship:
+this_publisher.books.all()	# get all the books this publisher is publishing
+this_book.publishers.all()	# get all the publishers for this book

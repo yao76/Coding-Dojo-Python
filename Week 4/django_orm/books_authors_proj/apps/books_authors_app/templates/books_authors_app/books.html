@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Book Info</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'books_authors_app/css/bootstrap.css' %}">
+</head>
+
+<body>
+    <h1>{{ selected_book.title }}</h1>
+    <p>ID: {{ selected_book.id }}</p>
+    <p>Description: {{ selected_book.desc }}</p>
+    <p>Authors:</p>
+    <ul>
+        {% for key in selected_book.authors.all %}
+        <li>{{key.first_name}} {{key.last_name}}</li>
+        {% endfor %}
+    </ul>
+    <form action="/books/{{a}}/update" method="post">
+    {% csrf_token %}
+    <select name="authors">
+        {% for key in all_authors %}
+        <option value="{{key.id}}">{{key.first_name}} {{key.last_name}}</option>
+        {% endfor %}
+    </select>
+    <input type="submit" value="Add">
+    </form>
+
+</body>
+
+</html>
